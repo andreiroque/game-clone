@@ -1,4 +1,5 @@
 import pygame
+import random
 
 pygame.init()
 screen = pygame.display.set_mode((640, 480))
@@ -16,6 +17,8 @@ textRect = text.get_rect()
 textRect.center = (60, 30)
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+food_pos = pygame.Vector2(random.randrange(0, screen.get_width(), 10), random.randrange(0, screen.get_height(), 10))
+
 
 while running:
 
@@ -28,6 +31,7 @@ while running:
   screen.blit(text, textRect)
 
   pygame.draw.rect(screen, "white", pygame.Rect(player_pos.x, player_pos.y, 10, 10))
+  pygame.draw.rect(screen, "red", pygame.Rect(food_pos.x, food_pos.y, 10, 10))
 
   keys = pygame.key.get_pressed()
   if keys[pygame.K_w]:
