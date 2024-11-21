@@ -50,7 +50,7 @@ while running:
 
   renderScore()
 
-  pygame.draw.rect(screen, "white", pygame.Rect(player_pos.x, player_pos.y, 10, 10))
+  pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(player_pos.x, player_pos.y, 10, 10))
   pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(food_pos.x, food_pos.y, 10, 10))
 
   keys = pygame.key.get_pressed()
