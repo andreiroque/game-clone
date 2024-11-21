@@ -12,6 +12,7 @@ grid_size = 10
 move_delay = 50 #delay between movements in milliseconds 
 last_move_time = 0
 tail = []
+has_eaten = False
 
 text = ""
 
@@ -47,8 +48,12 @@ while running:
     if len(tail) > 0:
       tail.insert(0, previous_pos)
       tail.pop()
+      has_eaten = True
+      for i in range(0, len(tail)):
+        if player_pos.x == tail[i].x and player_pos.y == tail[i].y :
+          running = False
     last_move_time = current_time
-
+    has_eaten = False
   screen.fill("black")
 
   #Draw grid
@@ -102,5 +107,8 @@ while running:
   pygame.display.flip()
 
   clock.tick(60)
+
+print("Game Over!")
+print(f"Total Score: {score_counter}")
 
 pygame.quit()
