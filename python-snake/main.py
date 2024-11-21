@@ -11,6 +11,7 @@ score_counter = 0
 grid_size = 10
 move_delay = 50 #delay between movements in milliseconds 
 last_move_time = 0
+tail = []
 
 text = ""
 
@@ -36,22 +37,49 @@ while running:
     if event.type == pygame.QUIT:
       running = False
 
+  current_time = pygame.time.get_ticks()
+  if current_time - last_move_time > move_delay:
+
+    previous_pos = player_pos.copy()
+
+    player_pos += direction
+
+    if len(tail) > 0:
+      tail.insert(0, previous_pos)
+      tail.pop()
+    last_move_time = current_time
+
   screen.fill("black")
 
   #Draw grid
-  for col in range(40):
-    for row in range(40):
-      pygame.draw.rect(screen, (33, 33, 33),pygame.Rect(row * 10, col * 10, 10, 10), 1)
+  # for col in range(40):
+  #   for row in range(40):
+  #     pygame.draw.rect(screen, (33, 33, 33),pygame.Rect(row * 10, col * 10, 10, 10), 1)
 
   #Check if snake eats the food
   if player_pos == food_pos:
     score_counter += 1
     food_pos = summonFood()
+    tail.append(player_pos.copy())
 
   renderScore()
 
-  pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(player_pos.x, player_pos.y, 10, 10))
+  pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(player_pos.x, player_pos.y, 10, 10))
   pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(food_pos.x, food_pos.y, 10, 10))
+
+  for i in range(0, len(tail)):
+    pygame.draw.rect(screen, (255 - i * 5, 255 - i * 5, 255 - i * 5), pygame.Rect(tail[i].x, tail[i].y, 10, 10))
+
+
+  if player_pos.x <= 0:
+    player_pos.x = screen.get_width()
+  elif player_pos.x >= screen.get_width():
+    player_pos.x = 0
+  elif player_pos.y <= 0:
+    player_pos.y = screen.get_height()
+  elif player_pos.y >= screen.get_height():
+    player_pos.y = 0
+
 
   keys = pygame.key.get_pressed()
   if keys[pygame.K_w] or keys[pygame.K_UP]:
@@ -68,10 +96,7 @@ while running:
       direction = pygame.Vector2(grid_size, 0)
 
 
-  current_time = pygame.time.get_ticks()
-  if current_time - last_move_time > move_delay:
-    player_pos += direction
-    last_move_time = current_time
+  
 
 
   pygame.display.flip()
