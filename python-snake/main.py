@@ -2,7 +2,7 @@ import pygame
 import random
 
 pygame.init()
-screen = pygame.display.set_mode((640, 480))
+screen = pygame.display.set_mode((400, 400))
 pygame.display.set_caption("Snake Clone")
 clock = pygame.time.Clock()
 running = True
@@ -27,6 +27,10 @@ while running:
       running = False
 
   screen.fill("black")
+  
+  for col in range(40):
+    for row in range(40):
+      pygame.draw.rect(screen, (255, 255, 255),pygame.Rect(row * 10, col * 10, 10, 10), 1)
 
   screen.blit(text, textRect)
 
@@ -35,13 +39,13 @@ while running:
 
   keys = pygame.key.get_pressed()
   if keys[pygame.K_w]:
-    player_pos.y -= 300 * dt
+    player_pos.y -= 100 * dt + 10
   elif keys[pygame.K_s]:
-    player_pos.y += 300 * dt
+    player_pos.y += 100 * dt + 10
   elif keys[pygame.K_a]:
-    player_pos.x -= 300 * dt
+    player_pos.x -= 100 * dt + 10
   elif keys[pygame.K_d]:
-    player_pos.x += 300 * dt
+    player_pos.x += 100 * dt + 10
 
   pygame.display.flip()
 
