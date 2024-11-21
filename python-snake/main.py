@@ -17,25 +17,30 @@ textRect = text.get_rect()
 textRect.center = (60, 30)
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-food_pos = pygame.Vector2(random.randrange(0, screen.get_width(), 10), random.randrange(0, screen.get_height(), 10))
 
+def summonFood():
+   return  pygame.Vector2(random.randrange(0, screen.get_width(), 10), random.randrange(0, screen.get_height(), 10))
+
+food_pos = summonFood()
 
 while running:
-
   for event in pygame.event.get():
+    if event.type == pygame.WINDOWENTER:
+      summonFood()
     if event.type == pygame.QUIT:
       running = False
 
   screen.fill("black")
-  
+
+  #Draw grid
   for col in range(40):
     for row in range(40):
-      pygame.draw.rect(screen, (255, 255, 255),pygame.Rect(row * 10, col * 10, 10, 10), 1)
+      pygame.draw.rect(screen, (33, 33, 33),pygame.Rect(row * 10, col * 10, 10, 10), 1)
 
   screen.blit(text, textRect)
 
   pygame.draw.rect(screen, "white", pygame.Rect(player_pos.x, player_pos.y, 10, 10))
-  pygame.draw.rect(screen, "red", pygame.Rect(food_pos.x, food_pos.y, 10, 10))
+  pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(food_pos.x, food_pos.y, 10, 10))
 
   keys = pygame.key.get_pressed()
   if keys[pygame.K_w]:
