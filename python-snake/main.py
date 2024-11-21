@@ -73,10 +73,9 @@ while running:
     player_pos += direction
     last_move_time = current_time
 
-  
 
   pygame.display.flip()
 
-  clock.tick(60) / 1000
+  clock.tick(60)
 
 pygame.quit()
