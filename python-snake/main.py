@@ -12,13 +12,16 @@ grid_size = 10
 move_delay = 50 #delay between movements in milliseconds 
 last_move_time = 0
 
+text = ""
+
 
 font = pygame.font.Font("DejaVuSansMono.ttf", 20)
-text = font.render(f"Score: {score_counter}",  True, (255, 255, 255), (0, 0, 0))
 
-textRect = text.get_rect()
-
-textRect.center = (60, 30)
+def renderScore():
+  text = font.render(f"Score: {score_counter}",  True, (255, 255, 255), (0, 0, 0))
+  textRect = text.get_rect()
+  textRect.center = (60, 30)
+  screen.blit(text, textRect)
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 direction = pygame.Vector2(grid_size, 0) # Initialize moving to rigth by 10px
@@ -40,8 +43,12 @@ while running:
     for row in range(40):
       pygame.draw.rect(screen, (33, 33, 33),pygame.Rect(row * 10, col * 10, 10, 10), 1)
 
+  #Check if snake eats the food
+  if player_pos == food_pos:
+    score_counter += 1
+    food_pos = summonFood()
 
-  screen.blit(text, textRect)
+  renderScore()
 
   pygame.draw.rect(screen, "white", pygame.Rect(player_pos.x, player_pos.y, 10, 10))
   pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(food_pos.x, food_pos.y, 10, 10))
