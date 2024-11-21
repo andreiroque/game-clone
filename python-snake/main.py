@@ -52,9 +52,9 @@ while running:
   screen.fill("black")
 
   #Draw grid
-  for col in range(40):
-    for row in range(40):
-      pygame.draw.rect(screen, (33, 33, 33),pygame.Rect(row * 10, col * 10, 10, 10), 1)
+  # for col in range(40):
+  #   for row in range(40):
+  #     pygame.draw.rect(screen, (33, 33, 33),pygame.Rect(row * 10, col * 10, 10, 10), 1)
 
   #Check if snake eats the food
   if player_pos == food_pos:
@@ -64,7 +64,7 @@ while running:
 
   renderScore()
 
-  pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(player_pos.x, player_pos.y, 10, 10))
+  pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(player_pos.x, player_pos.y, 10, 10))
   pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(food_pos.x, food_pos.y, 10, 10))
 
   for i in range(0, len(tail)):
