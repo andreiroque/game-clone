@@ -54,7 +54,6 @@ while running:
   pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(food_pos.x, food_pos.y, 10, 10))
 
 
-
   if player_pos.x < 0:
     player_pos.x = screen.get_width()
   elif player_pos.x > screen.get_width():
